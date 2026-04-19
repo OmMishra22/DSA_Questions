@@ -1,0 +1,97 @@
+1.  REVERSE A LINKED LIST
+2.  MIDDLE OF A LINKED LIST
+3.  PALLINDROME LINKED LIST
+-------------------------------------------------
+
+Q1. Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+sol.
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while(curr != null){
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q2. Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+Sol.
+
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3. Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+Sol.
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) return true;
+
+        ListNode i = head;
+        ListNode mid = findMid(head);
+        ListNode j = reverseList(mid);
+        while (j != null) {
+            if (i.val != j.val) {
+                return false;
+            }
+            i = i.next;
+            j = j.next;
+        }
+
+        return true;
+    
+        
+    }
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while(curr != null){
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    public ListNode findMid(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q4. 
