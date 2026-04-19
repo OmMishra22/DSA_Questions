@@ -1,0 +1,100 @@
+1.  VALID PARANTHESIS
+2.  MIN STACK
+3.  NEXT GREATER ELEMENT
+------------------------------------------
+Q1.Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+Sol.
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for(char c : s.toCharArray()){
+            if(c == '(' || c == '{' || c == '['){
+                stack.push(c);
+            }
+            else{
+                if(stack.isEmpty()) return false;
+                char top = stack.pop();
+
+                if(
+                    (c == ')' && top != '(') ||
+                    (c == '}' && top != '{') ||
+                    (c == ']' && top != '[') ) {
+                        return false ;
+                    }
+            }
+
+        }
+        return stack.isEmpty();
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q2. Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Sol.
+
+class MinStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+    
+    public void push(int val) {
+        stack.push(val);
+        if (minStack.isEmpty() || val <= minStack.peek()) {
+            minStack.push(val);
+        }
+    }
+    
+    public void pop() {
+        int removed = stack.pop();
+        if (removed == minStack.peek()) {
+            minStack.pop();
+        }
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3. The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
+You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. 
+If there is no next greater element, then the answer for this query is -1. Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
+
+Sol.
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+
+        for(int num : nums2){
+            while(!stack.isEmpty() && num > stack.peek()){
+                mp.put(stack.pop(), num);
+            }
+            stack.push(num);
+        }
+         
+        while(!stack.isEmpty()){
+            mp.put(stack.pop(), -1);
+        }
+        int[] result = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            result[i] = mp.get(nums1[i]);
+        }
+        return result;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
