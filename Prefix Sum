@@ -1,0 +1,22 @@
+1.  RUNNING SUM OF 1D ARRAY
+-------------------------------------------
+
+Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+Return the running sum of nums.
+
+Sol. 
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int n = nums.length ;
+        int[] newArr = new int[n];
+        
+        int ans = 0 ;
+
+        for(int i = 0 ; i < n ; i++){
+            ans = ans + nums[i];
+            newArr[i] = ans ;
+        }
+        return newArr;
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
