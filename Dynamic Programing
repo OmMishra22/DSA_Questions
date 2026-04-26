@@ -1,4 +1,6 @@
 1.  CLIMBING STAIRS
+2.  HOUSE ROBBER
+3.  MINIMUM COST CLIMBING STAIRS
 -------------------------------------------------------------
 
 Q1. You are climbing a staircase. It takes n steps to reach the top.
@@ -39,5 +41,124 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Q2. 
+Q2. You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is 
+that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
 
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+Sol. 
+
+APPROACH 1
+---------------------------------------------------------
+
+// class Solution {
+//     public int rob(int[] nums) {
+//        int n = nums.length;
+
+//        int rob = 0;
+//        int skip = 0;
+
+//        for(int num : nums){
+//             int newRob = skip + num ;
+//             int newSkip = Math.max(skip, rob);
+//             System.out.println(newRob);
+//             System.out.println(newSkip);
+
+//             rob = newRob ;
+//             skip = newSkip;
+//        }
+//        return Math.max(rob, skip);
+ 
+//     }
+// }
+
+APPROACH 2
+------------------------------------------------------------
+class Solution {
+    int[] dp;
+    public int rob(int[] nums) {
+        int length = nums.length;
+        this.dp = new int[length+1];
+        Arrays.fill(dp,-1);
+        return f(length-1,nums);
+    }
+    private int f(int n,int[] nums){
+        if(n==0) return dp[0] = nums[0];
+        if(n<0) return 0;
+        if(dp[n]!=-1) return dp[n];
+
+        int take = nums[n] + f(n-2,nums);
+        int skip = 0 + f(n-1,nums);
+
+        return dp[n] = Math.max(take,skip);
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3. You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+You can either start from the step with index 0, or the step with index 1.
+Return the minimum cost to reach the top of the floor.
+
+Sol. 
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+
+    //     APPROACH 1    
+
+    //     int n = cost.length;
+    //     int[] dp = new int[n];
+    //     Arrays.fill(dp, -1);
+
+    //     return Math.min(minCost(n-1, cost, dp),
+    //                     minCost(n-2, cost, dp));
+    // }
+
+    // public int minCost(int i, int[] cost, int[] dp) {
+    //     if (i == 0) return cost[0];
+    //     if (i == 1) return cost[1];
+
+    //     if (dp[i] != -1) return dp[i];
+
+    //     dp[i] = cost[i] + Math.min(
+    //                 minCost(i-1, cost, dp),
+    //                 minCost(i-2, cost, dp)
+    //             );
+
+    //     return dp[i];
+
+    // -------------------------------------------------
+    
+    //     APPROACH 2    
+
+    // int n = cost.length;
+    // int[] dp = new int[n];
+
+    // dp[0] = cost[0];
+    // dp[1] = cost[1];
+
+    // for(int i = 2 ; i < n ; i++){
+    //     dp[i] = Math.min(dp[i-1], dp[i-2]) + cost[i];
+    // }
+    // return Math.min(dp[n-1], dp[n-2]);
+
+    //  -------------------------------------------------------------------
+    
+    //  APPRAOCH 3
+
+    int n =  cost.length;
+    int prev1 = cost[1];
+    int prev2 = cost[0];
+
+    for(int i = 2 ; i < n ; i++){
+        int curr = Math.min(prev1, prev2) + cost[i];
+
+        prev2 = prev1;
+        prev1 = curr;
+    }
+    return Math.min(prev1, prev2);
+
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
