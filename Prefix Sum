@@ -1,4 +1,5 @@
 1.  RUNNING SUM OF 1D ARRAY
+2.  FIND THE HIGHEST ALTITUDE
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -20,3 +21,26 @@ class Solution {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q2. There is a biker going on a road trip. The road trip consists of n + 1 points at different altitudes. The biker starts his trip on point 0 with altitude equal 0.
+You are given an integer array gain of length n where gain[i] is the net gain in altitude between points i​​​​​​ and i + 1 for all (0 <= i < n). Return the highest altitude of a point.
+
+Sol. 
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int n = gain.length;
+        int[] alt = new int[n+1];
+        int max = 0 ;
+        alt[0] = 0;
+
+        for(int i = 0 ; i < n ; i++){
+            alt[i+1] = alt[i] + gain[i];
+            if(alt[i+1] > max){
+                max = alt[i+1];
+            }
+        }
+        return max;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q3. 
