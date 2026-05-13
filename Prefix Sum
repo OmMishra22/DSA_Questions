@@ -1,6 +1,7 @@
 1.  RUNNING SUM OF 1D ARRAY
 2.  FIND THE HIGHEST ALTITUDE
 3.  FIND THE MIDDLE ELEMENT OF AN ARRAY
+4.  CORPORATE FLIGHT BOOKING
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -75,4 +76,37 @@ class Solution {
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Q4. 
+Q4. There are n flights that are labeled from 1 to n.
+You are given an array of flight bookings bookings, where bookings[i] = [firsti, lasti, seatsi] represents a booking for flights firsti through lasti (inclusive) with seatsi seats reserved for each flight in the range.
+Return an array answer of length n, where answer[i] is the total number of seats reserved for flight i.
+
+Sol.
+
+class Solution {
+
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+
+        int[] diff = new int[n];
+
+        for(int i = 0; i < bookings.length; i++) {
+
+            int first = bookings[i][0];
+            int last = bookings[i][1];
+            int seats = bookings[i][2];
+
+            diff[first - 1] += seats;
+
+            if(last < n) {
+                diff[last] -= seats;
+            }
+        }
+
+        for(int i = 1; i < n; i++) {
+            diff[i] += diff[i - 1];
+        }
+
+        return diff;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
