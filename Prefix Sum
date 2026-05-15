@@ -2,6 +2,7 @@
 2.  FIND THE HIGHEST ALTITUDE
 3.  FIND THE MIDDLE ELEMENT OF AN ARRAY
 4.  CORPORATE FLIGHT BOOKING
+5.  CAR POOLING
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -106,6 +107,48 @@ class Solution {
         }
 
         return diff;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q5. There is a car with capacity empty seats. The vehicle only drives east (i.e., it cannot turn around and drive west).
+You are given the integer capacity and an array trips where trips[i] = [numPassengersi, fromi, toi] indicates that the ith trip has numPassengersi passengers and the locations to pick them up and drop them off are fromi and toi respectively. The locations are given as the number of kilometers due east from the car's initial location.
+Return true if it is possible to pick up and drop off all passengers for all the given trips, or false otherwise.
+
+Sol.  
+
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+
+        int pas = 0;
+        int from = 0;
+        int to = 0;
+
+        int[] ans = new int[1001];
+
+        for (int i = 0; i < trips.length; i++) {
+
+            pas = trips[i][0];
+            from = trips[i][1];
+            to = trips[i][2];
+
+            ans[from] += pas;
+            ans[to] -= pas;
+        }
+
+        for (int i = 0; i < ans.length; i++) {
+
+            if (i > 0) {
+                ans[i] = ans[i] + ans[i - 1];
+            }
+
+            if (ans[i] > capacity) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
