@@ -4,6 +4,7 @@
 4.  CORPORATE FLIGHT BOOKING
 5.  CAR POOLING
 6.  PRODUCT OF ARRAY EXCEPT SELF
+7.  NUMBER OF WAYS TO SPLIT ARRAY
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -180,6 +181,40 @@ class Solution {
         }
 
         return ans;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q7.  You are given a 0-indexed integer array nums of length n.
+nums contains a valid split at index i if the following are true:
+The sum of the first i + 1 elements is greater than or equal to the sum of the last n - i - 1 elements.
+There is at least one element to the right of i. That is, 0 <= i < n - 1.
+Return the number of valid splits in nums.
+
+Sol.
+
+class Solution {
+    public int waysToSplitArray(int[] nums) {
+        long total = 0;
+
+        for (int num : nums) {
+            total += num;
+        }
+
+        long leftSum = 0;
+        int count = 0;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            leftSum += nums[i];
+
+            long rightSum = total - leftSum;
+
+            if (leftSum >= rightSum) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }
 
