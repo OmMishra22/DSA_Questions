@@ -3,6 +3,7 @@
 3.  FIND THE MIDDLE ELEMENT OF AN ARRAY
 4.  CORPORATE FLIGHT BOOKING
 5.  CAR POOLING
+6.  PRODUCT OF ARRAY EXCEPT SELF
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -153,3 +154,34 @@ class Solution {
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q6. Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+Sol. 
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] prefixProd = new int[nums.length+2];
+        int[] suffixProd = new int[nums.length+2];
+        int[] ans = new int[nums.length];
+        prefixProd[0] = 1;
+        prefixProd[nums.length+1] = 1;
+        suffixProd[0] = 1;
+        suffixProd[nums.length+1] = 1;
+
+        for(int i = 0; i < nums.length ; i++){
+            prefixProd[i+1] = nums[i]*prefixProd[i];
+            suffixProd[nums.length - i] = nums[nums.length-1-i]*suffixProd[nums.length+1-i];
+        }
+        for(int i = 0 ; i < nums.length ; i++){
+            
+            ans[i] = prefixProd[i]*suffixProd[i+2];
+        }
+
+        return ans;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
