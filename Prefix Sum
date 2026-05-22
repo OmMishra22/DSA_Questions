@@ -6,6 +6,7 @@
 6.  PRODUCT OF ARRAY EXCEPT SELF
 7.  NUMBER OF WAYS TO SPLIT ARRAY
 8.  CONTIGUOUS ARRAY
+9.  NUMBER OF SUBARRAY WITH ODD SUM
 -------------------------------------------
 
 Q1. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
@@ -256,4 +257,32 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q9. Given an array of integers arr, return the number of subarrays with an odd sum.
+Since the answer can be very large, return it modulo 10^9 + 7.
+Sol.
 
+class Solution {
+    public int numOfSubarrays(int[] arr) {
+
+        long even = 1;
+        long odd = 0;
+
+        int sum = 0;
+
+        for (int num : arr) {
+
+            sum += num;
+
+            if (sum % 2 == 0) {
+                even++;
+            } else {
+                odd++;
+            }
+        }
+
+        long MOD = 1_000_000_007;
+
+        return (int)((even * odd) % MOD);
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
