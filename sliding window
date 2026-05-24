@@ -1,0 +1,35 @@
+1.  MAX POINTS OBTAIN FROM CARDS
+------------------------------------------------------
+
+Q1. There are several cards arranged in a row, and each card has an associated number of points. The points are given in the integer array cardPoints.
+In one step, you can take one card from the beginning or from the end of the row. You have to take exactly k cards.
+Your score is the sum of the points of the cards you have taken.
+Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
+
+Sol. 
+
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int i = 0 ; 
+        int j = cardPoints.length - k ;
+        int sum = 0 ;
+        
+
+        for(int n = j ; n <= cardPoints.length - 1 ; n++){
+            sum = sum + cardPoints[n];
+        }
+        int newSum = sum;
+        for(int n = 1 ; n <= k ; n++){
+            newSum = newSum - cardPoints[j] + cardPoints[i];
+
+            i++;
+            j++;
+
+            sum = Math.max(sum, newSum);
+        }
+        
+        return sum;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
