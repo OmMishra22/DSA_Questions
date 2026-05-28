@@ -1,4 +1,5 @@
 1.  COUNT NUMBER OF SPECIAL CHARACTER I
+2.  2 SUM
 --------------------------------------------------------------
 
 Q1. You are given a string word. A letter is called special if it appears both in lowercase and uppercase in word.
@@ -33,3 +34,25 @@ class Solution {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Q2. Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+Sol.
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> hist = new HashMap<>();
+
+        for(int i = 0 ; i < nums.length ; i++){
+            int comp = target - nums[i];
+
+            if(hist.containsKey(comp)){
+                return new int[] { hist.get(comp), i };
+            }
+
+            hist.put(nums[i], i); 
+        }
+        return new int[] {};
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
