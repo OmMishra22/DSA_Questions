@@ -1,0 +1,40 @@
+1.  TOP K FREQUENT ELEMENT 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Q1 .   Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+Sol.   
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for(int i = 0 ; i < nums.length ; i++){
+            if(freq.containsKey(nums[i])){
+                freq.put(nums[i], freq.get(nums[i])+1);
+            }
+            else{
+            freq.put(nums[i], 1); 
+            }
+        }
+        PriorityQueue<Integer> minHeap =
+                new PriorityQueue<>((a, b) -> freq.get(a) - freq.get(b));
+        
+        for(int key : freq.keySet()){
+            minHeap.add(key);
+
+            if(minHeap.size() > k){
+                minHeap.poll();
+            }
+        }
+        int[] answer = new int[k];
+
+        for(int i = 0; i < k ; i++){
+            answer[i] = minHeap.poll();
+        }
+
+        return answer;
+
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q2. 
